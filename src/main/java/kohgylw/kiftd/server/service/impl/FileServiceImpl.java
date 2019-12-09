@@ -243,6 +243,15 @@ public class FileServiceImpl extends RangeFileStreamWriter implements FileServic
 		f2.setFileParentFolder(folderId);
 		f2.setFilePath(path);
 		f2.setFileSize(fsize);
+        if(RegUtil.isImg(fileName)&&file.getSize()<new Long(5242880))
+        {
+            //如果是图片
+            f2.setParseStatus("1");
+        }
+        else
+        {
+            f2.setParseStatus("0");
+        }
 		int i = 0;
 		// 尽可能避免UUID重复的情况发生，重试10次
 		while (true) {
@@ -257,6 +266,7 @@ public class FileServiceImpl extends RangeFileStreamWriter implements FileServic
 				}
 				break;
 			} catch (Exception e) {
+			    e.printStackTrace();
 				f2.setFileId(UUID.randomUUID().toString());
 				i++;
 			}
@@ -975,6 +985,15 @@ public class FileServiceImpl extends RangeFileStreamWriter implements FileServic
 		f2.setFileParentFolder(folderId);
 		f2.setFilePath(path);
 		f2.setFileSize(fsize);
+        if(RegUtil.isImg(fileName)&&file.getSize()<new Long(5242880))
+        {
+            //如果是图片
+            f2.setParseStatus("1");
+        }
+        else
+        {
+            f2.setParseStatus("0");
+        }
 		int i = 0;
 		// 尽可能避免UUID重复的情况发生，重试10次
 		while (true) {

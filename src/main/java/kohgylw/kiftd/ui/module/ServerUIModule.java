@@ -56,6 +56,7 @@ public class ServerUIModule extends KiftdDynamicWindow {
 	private static MenuItem filesViewer;
 
 	private ServerUIModule() {
+
 		setUIFont();
 		(ServerUIModule.window = new JFrame("kiftd-服务器控制台")).setSize(OriginSize_Width, OriginSize_Height);
 		ServerUIModule.window.setLocation(100, 100);

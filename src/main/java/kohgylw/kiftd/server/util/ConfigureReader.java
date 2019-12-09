@@ -1304,4 +1304,12 @@ public class ConfigureReader {
 		}
 		return false;
 	}
+
+    public KiftdProperties getServerp() {
+        return serverp;
+    }
+
+    public void setServerp(KiftdProperties serverp) {
+        this.serverp = serverp;
+    }
 }

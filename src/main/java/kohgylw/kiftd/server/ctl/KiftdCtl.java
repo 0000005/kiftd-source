@@ -17,6 +17,7 @@ import org.springframework.boot.*;
 import org.springframework.http.*;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.*;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * 
@@ -30,7 +31,9 @@ import org.springframework.boot.web.server.*;
  * @version 1.0
  */
 @SpringBootApplication
+@ComponentScan(basePackages = {"kohgylw.kiftd.server.**"})
 @Import({ MVC.class })
+@EnableScheduling
 public class KiftdCtl {
 	private static ApplicationContext context;
 	private static boolean run;

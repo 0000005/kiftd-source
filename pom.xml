@@ -30,6 +30,12 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<!-- end 启动器 -->
+        <!-- test start -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <!-- test end -->
 
 		<!-- Gson json转化工具 -->
 		<dependency>

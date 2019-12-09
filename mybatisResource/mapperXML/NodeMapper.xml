@@ -11,6 +11,8 @@
 			property="fileCreationDate" />
 		<result column="file_creator" jdbcType="VARCHAR" property="fileCreator" />
 		<result column="file_path" jdbcType="VARCHAR" property="filePath" />
+		<result column="parse_content" jdbcType="VARCHAR" property="parseContent" />
+		<result column="parse_status" jdbcType="VARCHAR" property="parseStatus" />
 	</resultMap>
 
 	<select id="queryByParentFolderId" parameterType="java.lang.String"
@@ -20,8 +22,9 @@
 	</select>
 
 	<insert id="insert" parameterType="kohgylw.kiftd.server.model.Node">
-		INSERT INTO FILE
-		VALUES(#{fileId,jdbcType=VARCHAR},#{fileName,jdbcType=VARCHAR},#{fileSize,jdbcType=VARCHAR},#{fileParentFolder,jdbcType=VARCHAR},#{fileCreationDate,jdbcType=VARCHAR},#{fileCreator,jdbcType=VARCHAR},#{filePath,jdbcType=VARCHAR})
+		INSERT INTO FILE (`file_id`, `file_name`, `file_size`, `file_parent_folder`, `file_creation_date`, `file_creator`, `file_path`, `parse_content`, `parse_status`)
+		VALUES(#{fileId,jdbcType=VARCHAR},#{fileName,jdbcType=VARCHAR},#{fileSize,jdbcType=VARCHAR},#{fileParentFolder,jdbcType=VARCHAR},
+               #{fileCreationDate,jdbcType=VARCHAR},#{fileCreator,jdbcType=VARCHAR},#{filePath,jdbcType=VARCHAR},#{parseContent,jdbcType=VARCHAR},#{parseStatus,jdbcType=VARCHAR})
 	</insert>
 
 	<update id="update" parameterType="kohgylw.kiftd.server.model.Node">
@@ -31,7 +34,9 @@
 		#{fileParentFolder,jdbcType=VARCHAR},file_creation_date =
 		#{fileCreationDate,jdbcType=VARCHAR},file_creator =
 		#{fileCreator,jdbcType=VARCHAR},file_path =
-		#{filePath,jdbcType=VARCHAR} WHERE file_id =
+		#{filePath,jdbcType=VARCHAR},parse_status =
+        #{parseStatus,jdbcType=VARCHAR},parse_content =
+        #{parseContent,jdbcType=VARCHAR} WHERE file_id =
 		#{fileId,jdbcType=VARCHAR}
 	</update>
 
@@ -50,6 +55,10 @@
 		SELECT * FROM FILE WHERE file_id =
 		#{fileId,jdbcType=VARCHAR}
 	</select>
+
+    <select id="queryListByStatus" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM FILE WHERE parse_status = #{parseStatus,jdbcType=VARCHAR}
+    </select>
 
 	<update id="updateFileNameById" parameterType="java.util.Map">
 		UPDATE FILE SET

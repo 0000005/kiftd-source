@@ -16,7 +16,9 @@ public interface NodeMapper
     int deleteById(final String fileId);
     
     Node queryById(final String fileId);
-    
+
+    List<Node> queryListByStatus(final String status);
+
     int updateFileNameById(final Map<String, String> map);
     
     List<Node> queryAll();
