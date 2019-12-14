@@ -14,6 +14,8 @@ public interface FileService {
 
 	String doRenameFile(final HttpServletRequest request);
 
+    String updateParseContent(final HttpServletRequest request);
+
 	String deleteCheckedFiles(final HttpServletRequest request);
 
 	String getPackTime(final HttpServletRequest request);

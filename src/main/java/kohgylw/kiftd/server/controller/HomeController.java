@@ -129,6 +129,12 @@ public class HomeController {
 		return fis.doImportFolder(request, file);
 	}
 
+    @PostMapping(value = { "/updateParseContent.ajax" })
+    @ResponseBody
+    public String updateParseContent(final HttpServletRequest request) {
+        return fis.updateParseContent(request);
+    }
+
 	// 上传文件夹时，若存在同名文件夹并选择覆盖，则应先执行该方法，执行成功后再上传新的文件夹
 	@RequestMapping(value = { "/deleteFolderByName.ajax" }, produces = { CHARSET_BY_AJAX })
 	@ResponseBody

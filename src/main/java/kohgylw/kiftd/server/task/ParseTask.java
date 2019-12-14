@@ -21,37 +21,30 @@ public class ParseTask {
     @Resource
     NodeMapper nodeMapper;
     @Resource
-    FileBlockUtil fileBlockUtil;
-    @Resource
     ParseService parseService;
-    public void parse() {
-        System.out.println("开始解析文件：" + new Date());
+    boolean isParsing=false;
+    public String parse() {
+        String result="success";
+        if(isParsing)
+        {
+            return "isParsing";
+        }
+        isParsing=true;
         List<Node> list=nodeMapper.queryListByStatus("1");
-        list.stream().forEach(n->{
-            try {
-                File oldFile=fileBlockUtil.getFileFromBlocks(n);
-                if(Objects.nonNull(oldFile))
-                {
-                    File newFile = new File(ConfigureReader.instance().getTemporaryfilePath()+File.separator+n.getFileName());
-                    FileUtils.copyFile(oldFile,newFile);
-                    String data=parseService.ocrImg(newFile);
-                    if(data!=null&&!"".equals(data))
-                    {
-                        n.setParseContent(data);
-                        n.setParseStatus("2");
-                    }
-                    else{
-                        //解析失败
-                        n.setParseStatus("3");
-                    }
-                    FileUtils.forceDeleteOnExit(newFile);
-                }
-            }catch (Exception e)
+        System.out.println(new Date()+" 本次预计索引"+list.size()+"个内容");
+        new Thread(() -> {
+            try
             {
-                n.setParseStatus("3");
+                for(Node n:list)
+                {
+                    parseService.ocrImg(n.getFileId());
+                }
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
-            nodeMapper.update(n);
-        });
+        }).start();
+        isParsing=false;
+        return result;
     }
 }

@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kohgylw.kiftd.server.service.ParseService;
 import kohgylw.kiftd.server.task.ParseTask;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,10 +22,29 @@ public class ResourceController {
 	private ResourceService rs;
 	@Resource
     private ParseTask parseTask;
+	@Resource
+    private ParseService parseService;
 
     @RequestMapping("/parse.do")
-    public void parse(HttpServletRequest request, HttpServletResponse response) {
-        parseTask.parse();
+    @ResponseBody
+    public String parse(HttpServletRequest request, HttpServletResponse response) {
+        return parseTask.parse();
+    }
+
+    @RequestMapping("/parse-by-id.do")
+    @ResponseBody
+    public String parseById(HttpServletRequest request, HttpServletResponse response) {
+        String result="success";
+        try
+        {
+            parseService.ocrImg(request.getParameter("fileId"));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            result="error";
+        }
+        return result;
     }
 
 	// 以严格的HTTP响应格式返回在线资源流，适用于多数浏览器

@@ -718,7 +718,7 @@ function showAccountView(folderView) {
 		if (checkAuth(authList, "L")) {
 			$("#packageDownloadBox")
 					.html(
-							"<button class='btn btn-link navbar-btn' onclick='showDownloadAllCheckedModel()'><span class='glyphicon glyphicon-briefcase'></span> 打包下载</button>");
+							"<button class='btn btn-link navbar-btn' onclick='showDownloadAllCheckedModel()'><span class='glyphicon glyphicon-briefcase'></span> 打包下载</button><button class='btn btn-link navbar-btn' onclick='showCreateFileIndex()'><span class='glyphicon glyphicon-cloud-upload'></span> 建立索引</button>");
 		}else{
 			$("#packageDownloadBox").html("");
 		}
@@ -735,6 +735,34 @@ function showAccountView(folderView) {
 			}
 		}
 	}
+}
+
+function showCreateFileIndex(){
+    $("#indexConfirmModal").modal('show');
+}
+
+function createFileIndex(){
+    $("#indexConfirmModal").modal('hide');
+    $.ajax({
+        url:'resourceController/parse.do',
+        type:'GET',
+        data:{},
+        dataType:'text',
+        success:function(result){
+            if(result=="success")
+            {
+                alert("请求成功，请耐心等待");
+            }
+            else if(result=="isParsing")
+            {
+                alert("正在索引中，请稍后，请勿多次点击");
+            }
+            else if(result=="error")
+            {
+                alert("发生错误，请稍后再试");
+            }
+        }
+    });
 }
 
 // 检查权限列表
@@ -971,6 +999,16 @@ function showFolderTable(folderView) {
 					+ '"'
 					+ ")' class='btn btn-link btn-xs'><span class='glyphicon glyphicon-wrench'></span> 重命名</button>";
 		}
+        if (aR && fi.parseStatus=="2") {
+            fileRow = fileRow
+                + "<button onclick='showRawData("
+                + '"'
+                + fi.fileId
+                + '","'
+                + fi.parseContent
+                + '"'
+                + ")' class='btn btn-link btn-xs'><span class='glyphicon glyphicon-info-sign'></span> 索引内容</button>";
+        }
 		if (aO) {
 			fileRow = fileRow
 					+ "<button onclick='showFolderView("
@@ -1001,6 +1039,40 @@ function showFolderTable(folderView) {
 }
 
 var folderTypes=['公开的','仅小组','仅创建者'];// 文件夹约束条件（由小至大）
+//展示ocr的内容
+function showRawData(id,content)
+{
+    $("#rawDataModal").modal('show');
+    $("#parseContentText").val(content);
+    $("#fileId").val(id);
+}
+
+
+function updateRawData()
+{
+    var fileId=$("#fileId").val();
+    var rawData=$("#parseContentText").val();
+    $.ajax({
+        type : "POST",
+        dataType : "text",
+        data : {
+            fileId : fileId,
+            parseContent : rawData
+        },
+        url : "homeController/updateParseContent.ajax",
+        success : function(result) {
+            if (result == "updateSuccess") {
+                $("#rawDataModal").modal('hide');
+                showFolderView(locationpath);
+            } else {
+                showRFolderAlert("修改失败，请重试。");
+            }
+        },
+        error : function() {
+            showRFolderAlert("提示：出现意外错误，请刷新后重试。");
+        }
+    });
+}
 
 // 显示新建文件夹模态框
 function showNewFolderModel() {

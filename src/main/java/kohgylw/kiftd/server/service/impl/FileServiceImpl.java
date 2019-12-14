@@ -386,7 +386,15 @@ public class FileServiceImpl extends RangeFileStreamWriter implements FileServic
 		return "renameFileSuccess";
 	}
 
-	// 删除所有选中文件和文件夹
+    @Override
+    public String updateParseContent(HttpServletRequest request) {
+        final String fileId = request.getParameter("fileId");
+        final String parseContent = request.getParameter("parseContent");
+        fm.updateParseContentById(fileId,parseContent);
+        return "updateSuccess";
+    }
+
+    // 删除所有选中文件和文件夹
 	public String deleteCheckedFiles(final HttpServletRequest request) {
 		final String strIdList = request.getParameter("strIdList");
 		final String strFidList = request.getParameter("strFidList");

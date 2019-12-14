@@ -66,6 +66,12 @@
 		#{fileId,jdbcType=VARCHAR}
 	</update>
 
+    <update id="updateParseContentById" parameterType="java.util.Map">
+        UPDATE FILE SET
+            parse_content = #{parseContent,jdbcType=VARCHAR} WHERE file_id =
+                                                              #{fileId,jdbcType=VARCHAR}
+    </update>
+
 	<select id="queryAll" resultMap="BaseResultMap">
 		SELECT * FROM FILE
 	</select>

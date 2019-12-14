@@ -1,6 +1,8 @@
 package kohgylw.kiftd.server.mapper;
 
 import kohgylw.kiftd.server.model.*;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.*;
 
 public interface NodeMapper
@@ -20,7 +22,9 @@ public interface NodeMapper
     List<Node> queryListByStatus(final String status);
 
     int updateFileNameById(final Map<String, String> map);
-    
+
+    int updateParseContentById(@Param("fileId") String fileId , @Param("parseContent") String parseContent);
+
     List<Node> queryAll();
     
     Node queryByPath(final String path);

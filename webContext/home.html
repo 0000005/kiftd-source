@@ -290,6 +290,30 @@
 		</div>
 	</div>
 	<!-- end 删除文件夹 -->
+
+    <!---查看解析内容--->
+    <div class="modal fade" id="rawDataModal" tabindex="-1" role="dialog" aria-labelledby="rawDataModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rawDataModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea class="form-control" id="parseContentText" rows="10"></textarea>
+                    <input id="fileId" type="hidden"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">退出</button>
+                    <button type="button" class="btn btn-primary" onclick="updateRawData()">修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---end 查看解析内容--->
+
 	<!-- 重命名文件夹框 -->
 	<div class="modal fade" id="renameFolderModal" tabindex="-1"
 		role="dialog" aria-labelledby="renameFolderMolderTitle">
@@ -605,6 +629,28 @@
 		</div>
 	</div>
 	<!-- end 打包下载 -->
+    <!-- 索引询问 -->
+    <div class="modal fade" id="indexConfirmModal" tabindex="-1" role="dialog" aria-labelledby="indexConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="indexConfirmModalLabel">标题</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    你确定要索引所有文件吗
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="createFileIndex()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end索引询问 -->
+
 	<!--音乐播放模态框-->
 	<div class="modal fade" id="audioPlayerModal" tabindex="-1"
 		role="dialog">
@@ -827,5 +873,5 @@
 <!-- 音乐播放器 -->
 <script type="text/javascript" src="js/APlayer.min.js"></script>
 <!-- 页面操作定义 -->
-<script type="text/javascript" src="js/home.min.js"></script>
+<script type="text/javascript" src="js/home.js"></script>
 </html>
