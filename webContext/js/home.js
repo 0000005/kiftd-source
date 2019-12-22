@@ -749,9 +749,13 @@ function createFileIndex(){
         data:{},
         dataType:'text',
         success:function(result){
-            if(result=="success")
+            if(result=="wait")
             {
                 alert("请求成功，请耐心等待");
+            }
+            else if(result=="complete")
+            {
+                alert("已经索引全部文件");
             }
             else if(result=="isParsing")
             {
@@ -1033,6 +1037,12 @@ function showFolderTable(folderView) {
 			fileRow = fileRow + "--";
 		}
 		fileRow = fileRow + "</td></tr>";
+
+		if(fi.isSearch==true&&fi.parseContent!=null&&fi.parseContent!="")
+        {
+            fileRow=fileRow+"<tr class='searchTr'> <td colspan='5'><p>"+fi.parseContent+"</p></td></tr>"
+        }
+
 		$("#foldertable").append(fileRow);
 	}
 	changeFilesTableStyle();
@@ -2458,14 +2468,15 @@ var screenedFoldrView;// 经过排序的文件视图
 function doSearchFile(){
 	var keyworld=$("#sreachKeyWordIn").val();
 	if(keyworld.length!=0){
-		// 如果用户在搜索字段中声明了全局搜索
-		if(keyworld.startsWith("all:") || keyworld.startsWith("all：")){
-			selectInCompletePath(keyworld.substring(4));
-		}else{
-			startLoading();
-			selectInThisPath(keyworld);// 否则，均在本级下搜索
-			endLoading();
-		}
+        selectInCompletePath(keyworld);
+		// // 如果用户在搜索字段中声明了全局搜索
+		// if(keyworld.startsWith("all:") || keyworld.startsWith("all：")){
+		//
+		// }else{
+		// 	startLoading();
+		// 	selectInThisPath(keyworld);// 否则，均在本级下搜索
+		// 	endLoading();
+		// }
 	}else{
 		if(folderView.keyWorld != null){
 			showFolderView(locationpath);
@@ -2537,7 +2548,7 @@ function selectInCompletePath(keyworld){
 				parentpath = folderView.folder.folderParent;
 				constraintLevel=folderView.folder.folderConstraint;
 				screenedFoldrView=null;
-				$("#sreachKeyWordIn").val("all:" + folderView.keyWorld);
+				$("#sreachKeyWordIn").val(folderView.keyWorld);
 				showParentList(folderView);
 				showAccountView(folderView);
 				showPublishTime(folderView);

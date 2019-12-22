@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kohgylw.kiftd.server.mapper.NodeMapper">
 	<resultMap id="BaseResultMap" type="kohgylw.kiftd.server.model.Node">
+		<result column="id" jdbcType="INTEGER" property="id" />
 		<result column="file_id" jdbcType="VARCHAR" property="fileId" />
 		<result column="file_name" jdbcType="VARCHAR" property="fileName" />
 		<result column="file_size" jdbcType="VARCHAR" property="fileSize" />
@@ -13,6 +14,7 @@
 		<result column="file_path" jdbcType="VARCHAR" property="filePath" />
 		<result column="parse_content" jdbcType="VARCHAR" property="parseContent" />
 		<result column="parse_status" jdbcType="VARCHAR" property="parseStatus" />
+		<result column="is_index" jdbcType="VARCHAR" property="isIndex" />
 	</resultMap>
 
 	<select id="queryByParentFolderId" parameterType="java.lang.String"
@@ -22,9 +24,9 @@
 	</select>
 
 	<insert id="insert" parameterType="kohgylw.kiftd.server.model.Node">
-		INSERT INTO FILE (`file_id`, `file_name`, `file_size`, `file_parent_folder`, `file_creation_date`, `file_creator`, `file_path`, `parse_content`, `parse_status`)
+		INSERT INTO FILE (`file_id`, `file_name`, `file_size`, `file_parent_folder`, `file_creation_date`, `file_creator`, `file_path`, `parse_content`, `parse_status`, `is_index`)
 		VALUES(#{fileId,jdbcType=VARCHAR},#{fileName,jdbcType=VARCHAR},#{fileSize,jdbcType=VARCHAR},#{fileParentFolder,jdbcType=VARCHAR},
-               #{fileCreationDate,jdbcType=VARCHAR},#{fileCreator,jdbcType=VARCHAR},#{filePath,jdbcType=VARCHAR},#{parseContent,jdbcType=VARCHAR},#{parseStatus,jdbcType=VARCHAR})
+               #{fileCreationDate,jdbcType=VARCHAR},#{fileCreator,jdbcType=VARCHAR},#{filePath,jdbcType=VARCHAR},#{parseContent,jdbcType=VARCHAR},#{parseStatus,jdbcType=VARCHAR},#{isIndex,jdbcType=VARCHAR})
 	</insert>
 
 	<update id="update" parameterType="kohgylw.kiftd.server.model.Node">
@@ -36,7 +38,8 @@
 		#{fileCreator,jdbcType=VARCHAR},file_path =
 		#{filePath,jdbcType=VARCHAR},parse_status =
         #{parseStatus,jdbcType=VARCHAR},parse_content =
-        #{parseContent,jdbcType=VARCHAR} WHERE file_id =
+        #{parseContent,jdbcType=VARCHAR},is_index =
+        #{isIndex,jdbcType=VARCHAR} WHERE file_id =
 		#{fileId,jdbcType=VARCHAR}
 	</update>
 
@@ -58,6 +61,10 @@
 
     <select id="queryListByStatus" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT * FROM FILE WHERE parse_status = #{parseStatus,jdbcType=VARCHAR}
+    </select>
+
+    <select id="queryListByIndex" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM FILE WHERE is_index = #{is_index,jdbcType=VARCHAR}
     </select>
 
 	<update id="updateFileNameById" parameterType="java.util.Map">

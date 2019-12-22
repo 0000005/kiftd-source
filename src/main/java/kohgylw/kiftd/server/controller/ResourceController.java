@@ -37,7 +37,7 @@ public class ResourceController {
         String result="success";
         try
         {
-            parseService.ocrImg(request.getParameter("fileId"));
+            parseService.parseImg(request.getParameter("fileId"));
         }
         catch (Exception e)
         {

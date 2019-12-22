@@ -1,6 +1,7 @@
 package kohgylw.kiftd.server.service.impl;
 
 import kohgylw.kiftd.server.service.*;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.stereotype.*;
 import javax.annotation.*;
 import kohgylw.kiftd.server.mapper.*;
@@ -9,6 +10,8 @@ import kohgylw.kiftd.server.model.Node;
 
 import javax.servlet.http.*;
 import kohgylw.kiftd.server.pojo.*;
+
+import java.io.IOException;
 import java.util.*;
 import kohgylw.kiftd.server.enumeration.*;
 import kohgylw.kiftd.server.util.*;
@@ -24,7 +27,8 @@ public class FolderViewServiceImpl implements FolderViewService {
 	private NodeMapper flm;
 	@Resource
 	private Gson gson;
-
+    @Resource
+    ParseService parseService;
 	@Override
 	public String getFolderViewToJson(final String fid, final HttpSession session, final HttpServletRequest request) {
 		final ConfigureReader cr = ConfigureReader.instance();
@@ -96,7 +100,9 @@ public class FolderViewServiceImpl implements FolderViewService {
 	@Override
 	public String getSreachViewToJson(HttpServletRequest request) {
 		final ConfigureReader cr = ConfigureReader.instance();
-		String fid = request.getParameter("fid");
+//		String fid = request.getParameter("fid");
+        //永远都从root开始查询
+		String fid = "root";
 		String keyWorld = request.getParameter("keyworld");
 		if (fid == null || fid.length() == 0 || keyWorld == null) {
 			return "ERROR";
@@ -129,6 +135,11 @@ public class FolderViewServiceImpl implements FolderViewService {
 		List<Node> ns = new LinkedList<>();
 		List<Folder> fs = new LinkedList<>();
 		sreachFilesAndFolders(fid, keyWorld, account, ns, fs);
+        try {
+            ns.addAll(parseService.queuryFile(keyWorld));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 		sv.setFileList(ns);
 		sv.setFolderList(fs);
 		// 账户视图与文件夹相同
@@ -172,11 +183,13 @@ public class FolderViewServiceImpl implements FolderViewService {
 				sreachFilesAndFolders(f.getFolderId(), key, account, ns, fs);
 			}
 		}
-		for (Node n : this.flm.queryByParentFolderId(fid)) {
-			if (n.getFileName().indexOf(key) >= 0) {
-				n.setFileName(n.getFileName());
-				ns.add(n);
-			}
-		}
+
+//		for (Node n : this.flm.queryByParentFolderId(fid)) {
+//			if (n.getFileName().indexOf(key) >= 0) {
+//				n.setFileName(n.getFileName());
+//                n.setSearch(true);
+//				ns.add(n);
+//			}
+//		}
 	}
 }

@@ -106,3 +106,13 @@ td {
 	max-height: 35px;
 	cursor: pointer
 }
+
+.searchTr{
+    background-color: #fbfbfb;
+}
+.searchTr td p{
+    white-space: nowrap;
+    width: 1100px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}

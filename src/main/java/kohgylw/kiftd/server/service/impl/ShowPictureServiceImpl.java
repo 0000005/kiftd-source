@@ -60,8 +60,7 @@ public class ShowPictureServiceImpl implements ShowPictureService {
 					for (final Node n : nodes) {
 						final String fileName = n.getFileName();
 						final String suffix = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-						if (suffix.equals("jpg") || suffix.equals("jpeg") || suffix.equals("gif")
-								|| suffix.equals("bmp") || suffix.equals("png")) {
+						if (suffix.equals("jpg") || suffix.equals("jpeg") || suffix.equals("bmp") || suffix.equals("png")) {
 							int pSize = Integer.parseInt(n.getFileSize());
 							if (pSize > 1) {
 								n.setFilePath("homeController/showCondensedPicture.do?fileId=" + n.getFileId());

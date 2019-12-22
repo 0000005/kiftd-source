@@ -2,6 +2,7 @@ package kohgylw.kiftd.server.service.impl;
 
 import kohgylw.kiftd.server.service.*;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.stereotype.*;
 import kohgylw.kiftd.server.mapper.*;
@@ -12,6 +13,7 @@ import kohgylw.kiftd.server.model.*;
 import kohgylw.kiftd.server.pojo.CheckImportFolderRespons;
 import kohgylw.kiftd.server.pojo.CheckUploadFilesRespons;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.*;
 
 import javax.servlet.http.*;
@@ -36,6 +38,7 @@ import com.google.gson.reflect.TypeToken;
  * @see kohgylw.kiftd.server.service.FileService
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class FileServiceImpl extends RangeFileStreamWriter implements FileService {
 	private static final String ERROR_PARAMETER = "errorParameter";// 参数错误标识
 	private static final String NO_AUTHORIZED = "noAuthorized";// 权限错误标识
@@ -54,6 +57,8 @@ public class FileServiceImpl extends RangeFileStreamWriter implements FileServic
 	private FileBlockUtil fbu;
 	@Resource
 	private FolderUtil fu;
+	@Resource
+    private ParseService parseService;
 
 	private static final String CONTENT_TYPE = "application/octet-stream";
 
@@ -252,6 +257,7 @@ public class FileServiceImpl extends RangeFileStreamWriter implements FileServic
         {
             f2.setParseStatus("0");
         }
+        f2.setIsIndex("0");
 		int i = 0;
 		// 尽可能避免UUID重复的情况发生，重试10次
 		while (true) {
@@ -304,7 +310,13 @@ public class FileServiceImpl extends RangeFileStreamWriter implements FileServic
 		// 从节点删除
 		if (this.fm.deleteById(fileId) > 0) {
 			this.lu.writeDeleteFileEvent(request, file);
-			return "deleteFileSuccess";
+            try {
+                parseService.deleteIndexFile(file.getId().toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                new RuntimeException("删除索引失败");
+            }
+            return "deleteFileSuccess";
 		}
 		return "cannotDeleteFile";
 	}
@@ -380,7 +392,18 @@ public class FileServiceImpl extends RangeFileStreamWriter implements FileServic
 			if (this.fm.updateFileNameById(map) == 0) {
 				// 并写入日志
 				return "cannotRenameFile";
-			}
+			}else {
+			    if("1".equals(file.getIsIndex()))
+                {
+                    //已索引的才需要更新索引，否则不需要更新索引
+                    try {
+                        file.setFileName(newFileName);
+                        parseService.upadteIndexFile(file);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 		}
 		this.lu.writeRenameFileEvent(request, file, newFileName);
 		return "renameFileSuccess";
@@ -430,6 +453,7 @@ public class FileServiceImpl extends RangeFileStreamWriter implements FileServic
 				}
 				// 日志记录
 				this.lu.writeDeleteFileEvent(request, file);
+				parseService.deleteIndexFile(file.getId().toString());
 			}
 			// 删完选中的文件，再去删文件夹
 			final List<String> fidList = gson.fromJson(strFidList, new TypeToken<List<String>>() {
@@ -458,6 +482,7 @@ public class FileServiceImpl extends RangeFileStreamWriter implements FileServic
 			}
 			return "deleteFileSuccess";
 		} catch (Exception e) {
+		    e.printStackTrace();
 			return ERROR_PARAMETER;
 		}
 	}
@@ -1002,6 +1027,7 @@ public class FileServiceImpl extends RangeFileStreamWriter implements FileServic
         {
             f2.setParseStatus("0");
         }
+        f2.setIsIndex("0");
 		int i = 0;
 		// 尽可能避免UUID重复的情况发生，重试10次
 		while (true) {
@@ -1069,7 +1095,6 @@ public class FileServiceImpl extends RangeFileStreamWriter implements FileServic
 	 * </p>
 	 * 
 	 * @author 青阳龙野(kohgylw)
-	 * @param java.lang.String
 	 *            需要解析的相对路径
 	 * @return java.lang.String 文件名
 	 */

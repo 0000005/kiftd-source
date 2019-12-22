@@ -1,15 +1,21 @@
 package kohgylw.kiftd.server.util;
 
+import kohgylw.kiftd.server.service.ParseService;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.stereotype.*;
 import javax.annotation.*;
 
 import kohgylw.kiftd.server.enumeration.AccountAuth;
 import kohgylw.kiftd.server.mapper.*;
 import kohgylw.kiftd.server.model.*;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
+@Transactional(rollbackFor = Exception.class)
 public class FolderUtil {
 	@Resource
 	private FolderMapper fm;
@@ -17,6 +23,8 @@ public class FolderUtil {
 	private NodeMapper fim;
 	@Resource
 	private FileBlockUtil fbu;
+	@Resource
+    private ParseService parseService;
 
 	public List<Folder> getParentList(final String fid) {
 		Folder f = this.fm.queryById(fid);
@@ -56,7 +64,13 @@ public class FolderUtil {
 			this.fim.deleteByParentFolderId(folderId);
 			for (final Node f2 : files) {
 				this.fbu.deleteFromFileBlocks(f2);
-			}
+                try {
+                    parseService.deleteIndexFile(f2.getId().toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new RuntimeException("删除失败:"+f2);
+                }
+            }
 		}
 		this.fm.deleteById(folderId);
 	}

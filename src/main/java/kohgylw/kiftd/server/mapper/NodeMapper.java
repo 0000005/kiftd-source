@@ -21,6 +21,8 @@ public interface NodeMapper
 
     List<Node> queryListByStatus(final String status);
 
+    List<Node> queryListByIndex(final String isIndex);
+
     int updateFileNameById(final Map<String, String> map);
 
     int updateParseContentById(@Param("fileId") String fileId , @Param("parseContent") String parseContent);
