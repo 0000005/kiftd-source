@@ -1,0 +1,232 @@
+
+
+TIME:
+2019年12月16日 16:36:26
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Delete folder]
+>PATH [ROOT/]
+>NAME [commonUi]
+
+TIME:
+2019年12月16日 16:46:37
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Delete file]
+>PATH [ROOT]
+>NAME [b.png]
+
+TIME:
+2019年12月16日 16:47:06
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Delete file]
+>PATH [ROOT]
+>NAME [1M5A3553.JPG]
+
+TIME:
+2019年12月16日 16:49:17
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Delete file]
+>PATH [ROOT]
+>NAME [jte-cloud-1-service-alipay.log]
+
+TIME:
+2019年12月16日 16:49:51
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Rename file]
+>PATH [ROOT]
+>NAME [10寸香榭丽_1.jpg]->[10寸香榭丽_1.jpg]
+
+TIME:
+2019年12月16日 16:52:02
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Upload file]
+>PATH [ROOT/wwww]
+>NAME [1216.png]
+
+TIME:
+2019年12月16日 16:58:08
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Upload file]
+>PATH [ROOT/wwww]
+>NAME [121602.png]
+
+TIME:
+2019年12月16日 16:59:14
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Download file]
+>PATH [ROOT/wwww]
+>NAME [1216.png]
+
+TIME:
+2019年12月16日 16:59:14
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Download file]
+>PATH [ROOT/wwww]
+>NAME [121602.png]
+
+TIME:
+2019年12月16日 16:59:24
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Rename file]
+>PATH [ROOT/wwww]
+>NAME [121601.png]->[121601.png]
+
+TIME:
+2019年12月16日 17:00:34
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Delete folder]
+>PATH [ROOT/]
+>NAME [wwww]
+
+TIME:
+2019年12月16日 17:04:06
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Delete folder]
+>PATH [ROOT/]
+>NAME [1111]
+
+TIME:
+2019年12月16日 17:12:09
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Upload file]
+>PATH [ROOT/云pms]
+>NAME [1216.png]
+
+TIME:
+2019年12月16日 17:12:09
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Upload file]
+>PATH [ROOT/云pms]
+>NAME [121602.png]
+
+TIME:
+2019年12月16日 17:13:23
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Delete folder]
+>PATH [ROOT/]
+>NAME [云pms]
+
+TIME:
+2019年12月16日 17:14:33
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Upload file]
+>PATH [ROOT/111]
+>NAME [1216.png]
+
+TIME:
+2019年12月16日 17:21:06
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Delete folder]
+>PATH [ROOT/]
+>NAME [111]
+
+TIME:
+2019年12月16日 17:26:30
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Create new folder]
+>PATH [ROOT/]
+>NAME [11]，CONSTRAINT [0]
+
+TIME:
+2019年12月16日 17:26:39
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Upload file]
+>PATH [ROOT/11]
+>NAME [arthas-boot.jar]
+
+TIME:
+2019年12月16日 17:27:11
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Delete folder]
+>PATH [ROOT/]
+>NAME [11]
+
+TIME:
+2019年12月16日 17:28:03
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Delete file]
+>PATH [ROOT]
+>NAME [10寸香榭丽_1.jpg]

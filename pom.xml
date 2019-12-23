@@ -24,6 +24,11 @@
 
 	<!-- 外部资源 -->
 	<dependencies>
+        <dependency>
+            <groupId>org.buildobjects</groupId>
+            <artifactId>jproc</artifactId>
+            <version>2.2.3</version>
+        </dependency>
 		<!-- SpringBoot web启动器 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -200,30 +205,30 @@
 					<encoding>UTF8</encoding>
 				</configuration>
 			</plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-			<!--<plugin>-->
-				<!--<groupId>org.apache.maven.plugins</groupId>-->
-				<!--<artifactId>maven-jar-plugin</artifactId>-->
-				<!--<configuration>-->
-					<!--<archive>-->
-						<!--<manifest>-->
-							<!--<addClasspath>true</addClasspath>-->
-							<!--<classpathPrefix>libs/</classpathPrefix>-->
-							<!--<mainClass>kohgylw.kiftd.mc.MC</mainClass>-->
-						<!--</manifest>-->
-					<!--</archive>-->
-				<!--</configuration>-->
-			<!--</plugin>-->
+            <!--<plugin>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>repackage</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>libs/</classpathPrefix>
+							<mainClass>kohgylw.kiftd.mc.MC</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>

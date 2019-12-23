@@ -1,0 +1,100 @@
+
+
+TIME:
+2019年12月09日 15:55:45
+TYPE:
+Event
+CONTENT:
+>IP [0:0:0:0:0:0:0:1]
+>ACCOUNT [Anonymous]
+>OPERATE [Download file]
+>PATH [ROOT]
+>NAME [b.png]
+
+TIME:
+2019年12月09日 15:55:46
+TYPE:
+Event
+CONTENT:
+>IP [0:0:0:0:0:0:0:1]
+>ACCOUNT [Anonymous]
+>OPERATE [Download file]
+>PATH [ROOT]
+>NAME [2.png]
+
+TIME:
+2019年12月09日 15:55:46
+TYPE:
+Event
+CONTENT:
+>IP [0:0:0:0:0:0:0:1]
+>ACCOUNT [Anonymous]
+>OPERATE [Download file]
+>PATH [ROOT]
+>NAME [111.jpg]
+
+TIME:
+2019年12月09日 15:55:47
+TYPE:
+Event
+CONTENT:
+>IP [0:0:0:0:0:0:0:1]
+>ACCOUNT [Anonymous]
+>OPERATE [Download file]
+>PATH [ROOT]
+>NAME [c.png]
+
+TIME:
+2019年12月09日 16:17:40
+TYPE:
+Event
+CONTENT:
+>IP [0:0:0:0:0:0:0:1]
+>ACCOUNT [Anonymous]
+>OPERATE [Rename file]
+>PATH [ROOT]
+>NAME [1M5A3553.JPG]->[1M5A3553.JPG]
+
+TIME:
+2019年12月09日 16:17:54
+TYPE:
+Event
+CONTENT:
+>IP [0:0:0:0:0:0:0:1]
+>ACCOUNT [Anonymous]
+>OPERATE [Share Download file URL]
+>PATH [ROOT]
+>NAME [jte-cloud-1-service-alipay.log]
+
+TIME:
+2019年12月09日 16:17:57
+TYPE:
+Event
+CONTENT:
+>IP [0:0:0:0:0:0:0:1]
+>ACCOUNT [Anonymous]
+>OPERATE [Download file]
+>PATH [ROOT]
+>NAME [jte-cloud-1-service-alipay.log]
+
+TIME:
+2019年12月09日 16:17:58
+TYPE:
+Event
+CONTENT:
+>IP [0:0:0:0:0:0:0:1]
+>ACCOUNT [Anonymous]
+>OPERATE [Download file]
+>PATH [ROOT]
+>NAME [jte-cloud-1-service-alipay.log]
+
+TIME:
+2019年12月09日 16:18:37
+TYPE:
+Event
+CONTENT:
+>IP [0:0:0:0:0:0:0:1]
+>ACCOUNT [Anonymous]
+>OPERATE [Create new folder]
+>PATH [ROOT/]
+>NAME [云pms]，CONSTRAINT [0]

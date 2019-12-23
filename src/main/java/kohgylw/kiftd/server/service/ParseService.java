@@ -14,7 +14,7 @@ public interface ParseService {
     /**
      * ocr识别
      */
-    String ocrImg(File file);
+    String ocrImgByUrl(File file);
 
     Node parseImg(String fileId) throws IOException;
 
@@ -25,4 +25,6 @@ public interface ParseService {
     Node upadteIndexFile(Node node) throws IOException, SolrServerException;
 
     List<Node> queuryFile(String keyword) throws IOException, SolrServerException;
+
+    String ocrImgByLocal(File file);
 }

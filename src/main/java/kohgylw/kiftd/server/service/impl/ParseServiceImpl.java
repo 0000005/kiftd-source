@@ -15,6 +15,9 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.buildobjects.process.ProcBuilder;
+import org.buildobjects.process.ProcResult;
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -26,8 +29,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
-import sun.applet.Main;
-import sun.reflect.generics.tree.VoidDescriptor;
 
 import javax.annotation.Resource;
 import java.io.File;
@@ -44,7 +45,8 @@ public class ParseServiceImpl implements ParseService {
     @Resource
     private NodeMapper fm;
     @Resource
-    FileBlockUtil fileBlockUtil;
+    private FileBlockUtil fileBlockUtil;
+
 
     @Override
     public Node parseImg(String fileId) throws IOException {
@@ -63,7 +65,7 @@ public class ParseServiceImpl implements ParseService {
                 String data=null;
                 try
                 {
-                    data=ocrImg(newFile);
+                    data= ocrImgByLocal(newFile);
                 }
                 catch (Exception e)
                 {
@@ -86,7 +88,45 @@ public class ParseServiceImpl implements ParseService {
     }
 
     @Override
-    public String ocrImg(File file) {
+    public String ocrImgByLocal(File file) {
+
+        ApplicationHome h = new ApplicationHome(getClass());
+        File jarDir = h.getSource();
+        String command="python3.6";
+        if(System.getProperty("os.name").contains("indows"))
+        {
+            command="python";
+        }
+        ProcResult procResult= new ProcBuilder(command)
+                        .withArgs(jarDir.getParentFile().getAbsolutePath()+File.separator+"cnocr"+File.separator+"ocr.py",file.getAbsolutePath())
+                        .withTimeoutMillis(1000*120)
+                        .run();
+        int exitValue=procResult.getExitValue();
+        if(exitValue==0)
+        {
+            String resultStr=procResult.getOutputString();
+            JsonParser parser = new JsonParser();
+            JsonArray result = parser.parse(resultStr).getAsJsonArray();
+            StringBuffer content = new StringBuffer();
+            for (JsonElement r:result)
+            {
+                JsonArray charArray=r.getAsJsonArray();
+                for(JsonElement c :charArray)
+                {
+                    content.append(c.getAsString());
+                }
+            }
+            return content.toString();
+        }
+        else{
+            String resultStr=procResult.getErrorString();
+            System.out.println("ocr error:"+resultStr);
+        }
+        return null;
+    }
+
+    @Override
+    public String ocrImgByUrl(File file) {
         String ocrUrl=ConfigureReader.instance().getServerp().getProperty("ocr.url");
         FileSystemResource resource = new FileSystemResource(file);
         MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
@@ -200,6 +240,7 @@ public class ParseServiceImpl implements ParseService {
 
 //    public static void main(String[] args) throws IOException {
 ////        System.out.println(new ParseServiceImpl().parseImg("6443a370-e9fa-4591-8d50-96720d035e17");
-//        System.out.println(new ParseServiceImpl().shortContent("由于服务端是严格按照 MQTT 协议规范实现的，上述端侧设备不按规范接入，实际上消息调度不到 MQTT 应用协议层。MQTT 服务端依赖 Keep Alive 机制做超时检测，当一段时间接收不到客户端的心跳和业务消息时，就会触发心跳超时，关闭连接。针对上述两种接入场景，由于 MQTT 的连接流程没有完成，MQTT 协议栈不认为这个是合法的 MQTT 连接，因此心跳保护机制无法对上述 TCP 连接做检测。客户端和服务端都没有主动关闭这个连接，导致 TCP 连接一直保持。","心跳"));
+////        System.out.println(new ParseServiceImpl().shortContent("由于服务端是严格按照 MQTT 协议规范实现的，上述端侧设备不按规范接入，实际上消息调度不到 MQTT 应用协议层。MQTT 服务端依赖 Keep Alive 机制做超时检测，当一段时间接收不到客户端的心跳和业务消息时，就会触发心跳超时，关闭连接。针对上述两种接入场景，由于 MQTT 的连接流程没有完成，MQTT 协议栈不认为这个是合法的 MQTT 连接，因此心跳保护机制无法对上述 TCP 连接做检测。客户端和服务端都没有主动关闭这个连接，导致 TCP 连接一直保持。","心跳"));
+////        System.out.println(System.getProperty("os.name"));
 //    }
 }

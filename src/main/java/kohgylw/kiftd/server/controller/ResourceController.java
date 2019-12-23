@@ -28,7 +28,7 @@ public class ResourceController {
     @RequestMapping("/parse.do")
     @ResponseBody
     public String parse(HttpServletRequest request, HttpServletResponse response) {
-        return parseTask.parse();
+        return parseTask.parse(true);
     }
 
     @RequestMapping("/parse-by-id.do")

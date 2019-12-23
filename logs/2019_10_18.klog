@@ -1,0 +1,23 @@
+
+
+TIME:
+2019年10月18日 17:16:44
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Create new folder]
+>PATH [ROOT/]
+>NAME [a]，CONSTRAINT [0]
+
+TIME:
+2019年10月18日 17:16:51
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Create new folder]
+>PATH [ROOT/a/]
+>NAME [b]，CONSTRAINT [0]

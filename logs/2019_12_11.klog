@@ -1,0 +1,45 @@
+
+
+TIME:
+2019年12月11日 18:23:43
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Create new folder]
+>PATH [ROOT/]
+>NAME [111]，CONSTRAINT [0]
+
+TIME:
+2019年12月11日 18:24:05
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Create new folder]
+>PATH [ROOT/]
+>NAME [wwww]，CONSTRAINT [0]
+
+TIME:
+2019年12月11日 18:26:23
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Create new folder]
+>PATH [ROOT/]
+>NAME [1111]，CONSTRAINT [0]
+
+TIME:
+2019年12月11日 19:00:57
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Upload file]
+>PATH [ROOT]
+>NAME [11114.png]

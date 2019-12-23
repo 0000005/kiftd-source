@@ -27,7 +27,12 @@ public class ParseTask {
     public static boolean isParsing=false;
 
     @Scheduled(cron="0 1 22 * * ?")
-    public String parse() {
+    public String parse()
+    {
+        return parse(false);
+    }
+
+    public String parse(boolean isForce) {
         String result="wait";
         if(isParsing)
         {
@@ -55,12 +60,13 @@ public class ParseTask {
                         {
                             e.printStackTrace();
                         }
-                        if(!isContinue())
+                        if(!isForce&&!isContinue())
                         {
                             System.out.println("当前时间为："+new Date()+"，已经处理了"+(i+1)+"个文档，时间已到，停止执行剩余任务");
                             break;
                         }
                     }
+                    System.out.println("索引完成");
                     isParsing=false;
             });
         }

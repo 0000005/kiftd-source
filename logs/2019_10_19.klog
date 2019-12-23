@@ -1,0 +1,111 @@
+
+
+TIME:
+2019年10月19日 10:12:52
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Upload file]
+>PATH [ROOT]
+>NAME [2.png]
+
+TIME:
+2019年10月19日 10:13:01
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Download file]
+>PATH [ROOT]
+>NAME [2.png]
+
+TIME:
+2019年10月19日 10:48:59
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Upload file]
+>PATH [ROOT]
+>NAME [2.png]
+
+TIME:
+2019年10月19日 10:49:37
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Upload file]
+>PATH [ROOT]
+>NAME [jte-cloud-platform-service-alipay.log]
+
+TIME:
+2019年10月19日 16:05:38
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Rename file]
+>PATH [ROOT]
+>NAME [jte-cloud-platform-service-alipay.log]->[jte-cloud-1-service-alipay.log]
+
+TIME:
+2019年10月19日 16:36:15
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Upload file]
+>PATH [ROOT]
+>NAME [111.jpg]
+
+TIME:
+2019年10月19日 17:07:05
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Upload file]
+>PATH [ROOT]
+>NAME [1M5A3595 10寸香榭丽_1.jpg]
+
+TIME:
+2019年10月19日 17:07:30
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Upload file]
+>PATH [ROOT]
+>NAME [1M5A3553.JPG]
+
+TIME:
+2019年10月19日 17:07:52
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Upload file]
+>PATH [ROOT]
+>NAME [b.png]
+
+TIME:
+2019年10月19日 17:07:54
+TYPE:
+Event
+CONTENT:
+>IP [127.0.0.1]
+>ACCOUNT [Anonymous]
+>OPERATE [Upload file]
+>PATH [ROOT]
+>NAME [c.png]
