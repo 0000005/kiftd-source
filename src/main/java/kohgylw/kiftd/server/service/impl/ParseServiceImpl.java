@@ -1,6 +1,7 @@
 package kohgylw.kiftd.server.service.impl;
 
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import kohgylw.kiftd.server.mapper.NodeMapper;
 import kohgylw.kiftd.server.model.Node;
 import kohgylw.kiftd.server.service.ParseService;
@@ -39,6 +40,7 @@ import javax.annotation.Resource;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.List;
@@ -173,17 +175,31 @@ public class ParseServiceImpl implements ParseService {
         if(errCode==0)
         {
             JsonArray dataArray=result.getAsJsonArray("data");
+            Type listType = new TypeToken<List<JsonElement>>(){}.getType();
             if(Objects.nonNull(dataArray))
             {
-                for (int i =0;i<dataArray.size();i++)
+                List<JsonElement> dataList = new Gson().fromJson(dataArray, listType);
+                Collections.sort(dataList, (o1, o2) -> {
+                    Integer y1=o1.getAsJsonObject().getAsJsonArray("box").get(1).getAsInt();
+                    Integer y2=o2.getAsJsonObject().getAsJsonArray("box").get(1).getAsInt();
+                    if (y1 > y2) {
+                        return 1;
+                    }
+                    if (y1 < y2) {
+                        return -1;
+                    }
+                    return 0;
+                });
+                for (int i =0;i<dataList.size();i++)
                 {
-                    JsonElement d=dataArray.get(i);
+                    JsonElement d=dataList.get(i);
                     JsonArray positionArray=d.getAsJsonObject().getAsJsonArray("box");
                     if(Objects.nonNull(positionArray)&&positionArray.size()>0)
                     {
                         String suffix=originFile.getName().substring(originFile.getName().lastIndexOf("."));
                         String fileName=originFile.getName().substring(0,originFile.getName().lastIndexOf("."))+i+suffix;
                         String path=ConfigureReader.instance().getTemporaryfilePath()+File.separator+fileName;
+//                        String path="C:\\Users\\JerryYin\\Desktop\\temp\\split"+File.separator+fileName;
                         try
                         {
                             Map<String,Double> positionData=getPostion(positionArray);
@@ -355,7 +371,7 @@ public class ParseServiceImpl implements ParseService {
 //        array.add(80);
 //        array.add(36);
 //        System.out.println(new ParseServiceImpl().getPostion(array));
-        String json="{\"errCode\": 0, \"errMess\": \"\", \"data\": [{\"box\": [269, 1697, 1447, 1683, 1447, 1751, 269, 1765], \"prob\": 0.95, \"text\": null}, {\"box\": [269, 1983, 677, 1974, 677, 2045, 269, 2054], \"prob\": 0.98, \"text\": null}, {\"box\": [269, 1263, 1447, 1252, 1447, 1326, 269, 1337], \"prob\": 0.98, \"text\": null}, {\"box\": [269, 1767, 1447, 1753, 1447, 1824, 269, 1835], \"prob\": 0.97, \"text\": null}, {\"box\": [269, 1411, 949, 1405, 949, 1467, 269, 1476], \"prob\": 0.96, \"text\": null}, {\"box\": [541, 589, 1175, 580, 1175, 660, 541, 671], \"prob\": 0.96, \"text\": null}, {\"box\": [269, 1912, 1447, 1901, 1447, 1966, 269, 1977], \"prob\": 0.97, \"text\": null}, {\"box\": [269, 980, 1447, 966, 1447, 1034, 269, 1048], \"prob\": 0.97, \"text\": null}, {\"box\": [357, 509, 1311, 492, 1314, 583, 359, 600], \"prob\": 0.96, \"text\": null}, {\"box\": [269, 1844, 1447, 1824, 1447, 1895, 269, 1912], \"prob\": 0.98, \"text\": null}, {\"box\": [269, 1051, 1447, 1039, 1447, 1105, 269, 1116], \"prob\": 0.97, \"text\": null}, {\"box\": [269, 1620, 1447, 1612, 1447, 1688, 269, 1697], \"prob\": 0.97, \"text\": null}, {\"box\": [541, 430, 1130, 425, 1130, 515, 541, 521], \"prob\": 0.97, \"text\": null}, {\"box\": [223, 906, 1447, 892, 1447, 963, 223, 977], \"prob\": 0.97, \"text\": null}, {\"box\": [359, 1479, 858, 1473, 858, 1547, 359, 1552], \"prob\": 0.93, \"text\": null}, {\"box\": [223, 765, 903, 753, 903, 830, 223, 841], \"prob\": 0.88, \"text\": null}, {\"box\": [223, 235, 1447, 226, 1447, 376, 223, 385], \"prob\": 0.97, \"text\": null}, {\"box\": [314, 1549, 1447, 1538, 1447, 1612, 314, 1623], \"prob\": 0.93, \"text\": null}, {\"box\": [223, 1195, 1447, 1175, 1447, 1249, 223, 1269], \"prob\": 0.93, \"text\": null}, {\"box\": [223, 1122, 1447, 1102, 1447, 1178, 223, 1198], \"prob\": 0.95, \"text\": null}, {\"box\": [223, 1337, 1447, 1326, 1447, 1394, 223, 1402], \"prob\": 0.95, \"text\": null}, {\"box\": [269, 833, 1447, 818, 1447, 892, 269, 906], \"prob\": 0.91, \"text\": null}]}";
-        new ParseServiceImpl().generateRegionImg(json,new File("C:\\Users\\JerryYin\\Desktop\\temp\\2019043010424129921.jpg"));
+        String json="{\"errCode\": 0, \"errMess\": \"\", \"data\": [{\"box\": [367, 2248, 1372, 2251, 1372, 2344, 367, 2341], \"prob\": 0.98, \"text\": null}, {\"box\": [367, 1934, 1689, 1941, 1689, 2033, 367, 2026], \"prob\": 0.99, \"text\": null}, {\"box\": [367, 2357, 1160, 2357, 1160, 2443, 367, 2443], \"prob\": 0.94, \"text\": null}, {\"box\": [261, 1630, 1689, 1636, 1689, 1719, 261, 1712], \"prob\": 0.97, \"text\": null}, {\"box\": [261, 1316, 1266, 1319, 1266, 1408, 261, 1405], \"prob\": 0.95, \"text\": null}, {\"box\": [261, 1736, 1213, 1732, 1213, 1818, 261, 1821], \"prob\": 0.96, \"text\": null}, {\"box\": [261, 370, 1742, 367, 1742, 618, 261, 621], \"prob\": 0.96, \"text\": null}, {\"box\": [261, 1527, 1689, 1530, 1689, 1610, 261, 1607], \"prob\": 0.95, \"text\": null}, {\"box\": [367, 2456, 1266, 2460, 1266, 2549, 367, 2546], \"prob\": 0.94, \"text\": null}, {\"box\": [261, 2056, 367, 2053, 367, 2129, 261, 2132], \"prob\": 0.92, \"text\": null}, {\"box\": [367, 2142, 1001, 2149, 1001, 2241, 367, 2235], \"prob\": 0.96, \"text\": null}, {\"box\": [631, 853, 1372, 863, 1372, 952, 631, 942], \"prob\": 0.9, \"text\": null}, {\"box\": [367, 1835, 1001, 1841, 1001, 1927, 367, 1921], \"prob\": 0.97, \"text\": null}, {\"box\": [314, 1094, 1583, 1097, 1583, 1200, 314, 1197], \"prob\": 0.99, \"text\": null}, {\"box\": [314, 1418, 1689, 1431, 1689, 1514, 314, 1501], \"prob\": 0.94, \"text\": null}]}";
+        new ParseServiceImpl().generateRegionImg(json,new File("C:\\Users\\JerryYin\\Pictures\\kiftd\\img009.jpg"));
     }
 }
