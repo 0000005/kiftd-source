@@ -27,4 +27,6 @@ public interface ParseService {
     List<Node> queuryFile(String keyword) throws IOException, SolrServerException;
 
     String ocrImgByLocal(File file);
+
+    String ocr2String(File file);
 }
