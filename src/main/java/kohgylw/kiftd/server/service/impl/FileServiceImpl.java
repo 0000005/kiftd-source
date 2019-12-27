@@ -356,6 +356,7 @@ public class FileServiceImpl extends RangeFileStreamWriter implements FileServic
 	}
 
 	// 重命名文件
+    @Override
 	public String doRenameFile(final HttpServletRequest request) {
 		final String fileId = request.getParameter("fileId");
 		final String newFileName = request.getParameter("newFileName");
@@ -414,10 +415,21 @@ public class FileServiceImpl extends RangeFileStreamWriter implements FileServic
         final String fileId = request.getParameter("fileId");
         final String parseContent = request.getParameter("parseContent");
         fm.updateParseContentById(fileId,parseContent);
+        final Node file = this.fm.queryById(fileId);
+        if("1".equals(file.getIsIndex()))
+        {
+            //已索引的才需要更新索引，否则不需要更新索引
+            try {
+                parseService.upadteIndexFile(file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return "updateSuccess";
     }
 
     // 删除所有选中文件和文件夹
+    @Override
 	public String deleteCheckedFiles(final HttpServletRequest request) {
 		final String strIdList = request.getParameter("strIdList");
 		final String strFidList = request.getParameter("strFidList");
@@ -519,7 +531,7 @@ public class FileServiceImpl extends RangeFileStreamWriter implements FileServic
 			final File zip = new File(tfPath, zipname);
 			String fname = "kiftd_" + ServerTimeUtil.accurateToDay() + "_\u6253\u5305\u4e0b\u8f7d.zip";
 			if (zip.exists()) {
-				writeRangeFileStream(request, response, zip, fname, CONTENT_TYPE);
+				downloads(response,zip,fname);
 				zip.delete();
 			}
 		}

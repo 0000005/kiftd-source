@@ -1,34 +1,55 @@
 package kohgylw.kiftd.server.util;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 
+ *
  * <h2>断点式文件输出流写出工具</h2>
  * <p>
  * 该工具负责处理断点下载请求并以相应规则写出文件流。需要提供断点续传服务，请继承该类并调用writeRangeFileStream方法，
  * 该操作已换回较为简单的RandomAccessFile实现（效率与NIO相近，更节省内存）。
  * </p>
- * 
+ *
  * @author 青阳龙野(kohgylw)
  * @version 1.0
  */
 public class RangeFileStreamWriter {
 
+
+    public String downloads(HttpServletResponse response,File file,String fname) throws Exception{
+        //1、设置response 响应头
+        response.reset();
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("multipart/form-data");
+        response.setHeader("Content-Disposition", "attachment;fileName="+URLEncoder.encode(fname, "UTF-8"));
+        //2、 读取文件--输入流
+        InputStream input=new FileInputStream(file);
+        //3、 写出文件--输出流
+        OutputStream out = response.getOutputStream();
+        byte[] buff =new byte[1024];
+        int index=0;
+        //4、执行 写出操作
+        while((index= input.read(buff))!= -1){
+            out.write(buff, 0, index);
+            out.flush();
+        }
+        out.close();
+        input.close();
+        return null;
+    }
+
 	/**
-	 * 
+	 *
 	 * <h2>使用断点续传技术提供输出流</h2>
 	 * <p>
 	 * 处理普通的或带有断点续传参数的下载请求，并按照请求方式提供相应的输出流写出。请传入相应的参数并执行该方法以开始传输。
 	 * </p>
-	 * 
+	 *
 	 * @author 青阳龙野(kohgylw)
 	 * @param request
 	 *            javax.servlet.http.HttpServletRequest 请求对象
@@ -120,6 +141,7 @@ public class RangeFileStreamWriter {
 			out.flush();
 			out.close();
 		} catch (IOException ex) {
+		    ex.printStackTrace();
 			// 针对任何IO异常忽略，传输失败不处理
 		}
 	}

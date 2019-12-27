@@ -243,8 +243,8 @@ public class FileBlockUtil {
 			final List<Folder> folders = new ArrayList<>();
 			for (String fid : fidList) {
 				Folder fo = flm.queryById(fid);
-				if (ConfigureReader.instance().accessFolder(fo, account) && ConfigureReader.instance()
-						.authorized(account, AccountAuth.DOWNLOAD_FILES, fu.getAllFoldersId(fo.getFolderParent()))) {
+				//&& ConfigureReader.instance().authorized(account, AccountAuth.DOWNLOAD_FILES, fu.getAllFoldersId(fo.getFolderParent()))
+				if (ConfigureReader.instance().accessFolder(fo, account) ) {
 					if (fo != null) {
 						folders.add(fo);
 					}
